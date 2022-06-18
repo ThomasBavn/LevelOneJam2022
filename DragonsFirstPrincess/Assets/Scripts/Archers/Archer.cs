@@ -5,7 +5,7 @@ using UnityEngine;
 public class Archer : MonoBehaviour
 {
     [SerializeField] private float hp;
-    [SerializeField] private GameObject target;
+    [SerializeField] public GameObject target { get; set; }
     [SerializeField] private GameObject Arrow;
     
     [SerializeField] private float damage;
@@ -47,7 +47,8 @@ public class Archer : MonoBehaviour
 
         GameObject arrowObject = Instantiate(Arrow, transform.position, Quaternion.identity);
         Arrow arrowScript = arrowObject.GetComponent<Arrow>();
-        arrowScript.Init(velocity,damage);
+        if (arrowScript == null) Debug.Log("");
+        arrowScript.Init(velocity,1);
 
     }
 
