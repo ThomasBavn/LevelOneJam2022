@@ -10,13 +10,14 @@ public class ArcherSpawnManager : MonoBehaviour
     [SerializeField] private float minCooldown;
     private bool cooledDown=true;
     [SerializeField] GameObject archer;
-    [SerializeField] GameObject player;
+    GameObject player;
 
     private  GameObject[] archerSpawns;
     // Start is called before the first frame update
     void Start()
     {
         archerSpawns = GameObject.FindGameObjectsWithTag("ArcherSpawn");
+        player = GameObject.FindGameObjectWithTag("Dragon");
     }
 
     // Update is called once per frame
