@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 currentVelocity;
     private SpringDamper damper;
 
+    private bool breathingFire = false;
+    private bool canBreathFire = true;
+    private float breathingStart;
+    private float breathingEnd;
+
     private Vector3 initialCamOffset;
 
 
@@ -32,6 +37,15 @@ public class PlayerController : MonoBehaviour
     {
         ManageInputs();
         UpdateValues();
+
+        if (breathingFire && Time.time - breathingStart > 10)
+        {
+            BreathFire(false);
+        }
+        if (!canBreathFire && Time.time - breathingEnd > 5)
+        {
+            canBreathFire = true;
+        }
 
         //transform.LookAt(desiredDirection, Vector3.up);
         //transform.position += desiredDirection;
@@ -67,5 +81,35 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1);
         desiredDirection = (Camera.main.ScreenToWorldPoint(mousePos) - Camera.main.transform.position).normalized;
+
+        if (Input.GetMouseButtonDown(0) && !breathingFire && canBreathFire)
+        {
+            BreathFire(true);
+        }
+        else if (Input.GetMouseButtonUp(0) && breathingFire)
+        {
+            BreathFire(false);
+        }
+    }
+
+    private void BreathFire(bool state)
+    {
+        ParticleSystem particleSystem = GetComponentInChildren<ParticleSystem>();
+        AudioSource audioSource = GetComponentInChildren<AudioSource>();
+        if (state)
+        {
+            particleSystem.Play();
+            audioSource.Play();
+            breathingFire = true;
+            canBreathFire = false;
+            breathingStart = Time.time;
+        }
+        else
+        {
+            particleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+            audioSource.Stop();
+            breathingFire = false;
+            breathingEnd = Time.time;
+        }
     }
 }
