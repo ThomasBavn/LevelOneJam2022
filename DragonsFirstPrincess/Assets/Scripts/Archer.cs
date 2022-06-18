@@ -5,15 +5,16 @@ using UnityEngine;
 public class Archer : MonoBehaviour
 {
     [SerializeField] private float hp;
-
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject Arrow;
-
+    
+    [SerializeField] private float damage;
     [SerializeField] private float cooldown;
     [SerializeField] private float pojectileSpeed;
     [SerializeField] private float aboveFactor;
     [SerializeField] private float infrontFactor;
     [SerializeField] private float maxRandom;
+    
     private bool cooledDown = true;
 
 
@@ -46,7 +47,7 @@ public class Archer : MonoBehaviour
 
         GameObject arrowObject = Instantiate(Arrow, transform.position, Quaternion.identity);
         Arrow arrowScript = arrowObject.GetComponent<Arrow>();
-        arrowScript.Init(velocity);
+        arrowScript.Init(velocity,damage);
 
     }
 

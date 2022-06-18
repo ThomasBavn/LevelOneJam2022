@@ -5,6 +5,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     Rigidbody _rb;
+    private float damage;
 
     private void Awake()
     {
@@ -22,8 +23,9 @@ public class Arrow : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(_rb.velocity);
     }
 
-    public void Init(Vector3 velocity)
+    public void Init(Vector3 velocity,float damage)
     {
+        this.damage = damage;
         _rb.AddForce(velocity);
     }
 
