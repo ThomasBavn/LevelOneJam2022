@@ -32,13 +32,12 @@ public class PlayerController : MonoBehaviour
         damper = new SpringDamper(movementStiffness, movementDamping);
     }
 
-    // Update is called once per frame
     void Update()
     {
         ManageInputs();
         UpdateValues();
 
-        if (breathingFire && Time.time - breathingStart > 10)
+        if (breathingFire && Time.time - breathingStart > 8)
         {
             BreathFire(false);
         }
@@ -46,9 +45,6 @@ public class PlayerController : MonoBehaviour
         {
             canBreathFire = true;
         }
-
-        //transform.LookAt(desiredDirection, Vector3.up);
-        //transform.position += desiredDirection;
 
         Camera.main.transform.position += desiredDirection * movementSpeed;
         Camera.main.transform.LookAt(Camera.main.transform.position + currentDirection * cameraFollowSpeed, Vector3.up);
