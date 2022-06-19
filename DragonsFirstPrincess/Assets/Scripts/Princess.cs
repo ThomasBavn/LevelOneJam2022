@@ -5,6 +5,7 @@ using UnityEngine;
 public class Princess : MonoBehaviour
 {
     private bool attached = false;
+  
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class Princess : MonoBehaviour
                 AttachTo(dragonRb);
             }
         }
+
     }
 
     private void OnTriggerEnter(Collider other)

@@ -7,7 +7,8 @@ public class Archer : MonoBehaviour
     [SerializeField] private float hp;
     [SerializeField] public GameObject target { get; set; }
     [SerializeField] private GameObject Arrow;
-    
+
+    [SerializeField] private float range;
     [SerializeField] private float damage;
     [SerializeField] private float cooldown;
     [SerializeField] private float pojectileSpeed;
@@ -30,7 +31,7 @@ public class Archer : MonoBehaviour
     void Update()
     {
         transform.LookAt(target.transform.position);
-        if (cooledDown)
+        if (cooledDown && DistanceToTarget()<=range)
         {
             Shoot();
             StartCoroutine(Cooldown());
@@ -48,7 +49,7 @@ public class Archer : MonoBehaviour
         GameObject arrowObject = Instantiate(Arrow, transform.position, Quaternion.identity);
         Arrow arrowScript = arrowObject.GetComponent<Arrow>();
         if (arrowScript == null) Debug.Log("");
-        arrowScript.Init(velocity,1);
+        arrowScript.Init(velocity,damage);
 
     }
 
@@ -71,6 +72,17 @@ public class Archer : MonoBehaviour
     private void die()
     {
         Destroy(gameObject);
+    }
+
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Damage(1);
+    }
+
+    private float DistanceToTarget()
+    {
+        return (target.transform.position - transform.position).magnitude;
     }
 
 }

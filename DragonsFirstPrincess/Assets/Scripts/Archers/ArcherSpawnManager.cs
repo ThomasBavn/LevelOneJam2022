@@ -41,7 +41,7 @@ public class ArcherSpawnManager : MonoBehaviour
 
     private void AddArcher()
     {
-        int index = Random.Range(0, archerSpawns.Length-1);
+        int index = Random.Range(0, archerSpawns.Length);
 
 
         for (int i = 0; i<archerSpawns.Length; i++)
