@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -33,12 +34,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        /*
+        
         initialCamOffset = Camera.main.transform.position - transform.position;
         prevMovementStiffness = movementStiffness;
         prevMovementDamping = movementDamping;
         damper = new SpringDamper(movementStiffness, movementDamping);
-         */
+        
         currentHP = maxHp;
         healthbar= GameObject.FindGameObjectWithTag("UI").transform.Find("Healthbar").Find("Foreground").GetComponent<Image>();
         UpdateHealthUI();
@@ -104,7 +105,7 @@ public class PlayerController : MonoBehaviour
     private void BreathFire(bool state)
     {
         ParticleSystem particleSystem = GetComponentInChildren<ParticleSystem>();
-        AudioSource audioSource = GetComponentInChildren<AudioSource>();
+        AudioSource audioSource = GetComponentsInChildren<AudioSource>().Where(audioSource => audioSource.clip.name == "Fire").First();
         if (state)
         {
             particleSystem.Play();
