@@ -49,7 +49,7 @@ public class Archer : MonoBehaviour
         GameObject arrowObject = Instantiate(Arrow, transform.position, Quaternion.identity);
         Arrow arrowScript = arrowObject.GetComponent<Arrow>();
         if (arrowScript == null) Debug.Log("");
-        arrowScript.Init(velocity,1);
+        arrowScript.Init(velocity,damage);
 
     }
 

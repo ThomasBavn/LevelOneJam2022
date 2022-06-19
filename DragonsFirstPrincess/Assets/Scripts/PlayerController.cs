@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] float maxHp = 10;
+    float currentHP;
     [SerializeField] float movementStiffness = 1;
     [SerializeField] float movementDamping = 1;
     [SerializeField] float movementSpeed = 1;
@@ -23,15 +28,23 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 initialCamOffset;
 
+    private Image healthbar;
+
 
     void Start()
     {
+        /*
         initialCamOffset = Camera.main.transform.position - transform.position;
         prevMovementStiffness = movementStiffness;
         prevMovementDamping = movementDamping;
         damper = new SpringDamper(movementStiffness, movementDamping);
+         */
+        currentHP = maxHp;
+        healthbar= GameObject.FindGameObjectWithTag("UI").transform.Find("Healthbar").Find("Foreground").GetComponent<Image>();
+        UpdateHealthUI();
     }
 
+   
     void Update()
     {
         ManageInputs();
@@ -53,7 +66,7 @@ public class PlayerController : MonoBehaviour
         float mouseCenterOffsetY = 0.5f - Camera.main.ScreenToViewportPoint(Input.mousePosition).y;
         Quaternion roll = Quaternion.AngleAxis(mouseCenterOffsetX * 90, transform.forward);
         Quaternion pitch = Quaternion.AngleAxis(mouseCenterOffsetY * 90, Camera.main.transform.right);
-        transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward, roll * Vector3.up) * pitch;
+        transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward, roll * Vector3.up) * pitch;  
     }
 
     private void UpdateValues()
@@ -108,4 +121,27 @@ public class PlayerController : MonoBehaviour
             breathingEnd = Time.time;
         }
     }
+
+    public void Damage(float damage)
+    {
+        Debug.Log(currentHP);
+        currentHP -= damage;
+        Debug.Log(currentHP);
+        if (currentHP <= 0)
+        {
+            die();
+        }
+        UpdateHealthUI();
+    }
+
+    private void die()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void UpdateHealthUI()
+    {
+        healthbar.fillAmount = currentHP / maxHp;
+    }
+
 }

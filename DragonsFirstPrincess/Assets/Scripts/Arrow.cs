@@ -33,7 +33,7 @@ public class Arrow : MonoBehaviour
     {
         if (collision.collider.CompareTag("Dragon"))
         {
-            //damage dragon
+            collision.gameObject.GetComponent<PlayerController>().Damage(damage);
         }
         Destroy(gameObject);
     }
