@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1232e7bbbbe1aa459d9b6c8e6ab72e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  hp: 1
   Arrow: {fileID: 4185931284390636913, guid: 0e24817539ddfbc45ab218df2dd8b748, type: 3}
   range: 100
   damage: 1

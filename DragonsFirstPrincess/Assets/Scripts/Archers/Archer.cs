@@ -72,6 +72,7 @@ public class Archer : MonoBehaviour
     private void die()
     {
         Destroy(gameObject);
+
     }
 
     private void OnParticleCollision(GameObject other)
