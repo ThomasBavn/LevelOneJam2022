@@ -29,6 +29,9 @@ public class Cage : MonoBehaviour
         {
             pointManager.AddPoints(1);
             princessSpawnManager.SpawnPrincess();
+            other.GetComponent<Princess>().Detach();
+            other.tag = "Untagged";
+            Destroy(other.GetComponent<Princess>());
             PutInCage(other.gameObject);
         }
       

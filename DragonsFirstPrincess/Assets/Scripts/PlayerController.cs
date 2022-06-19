@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 initialCamOffset;
 
     private Image healthbar;
+    private Image firebar;
 
 
     void Start()
@@ -41,7 +42,8 @@ public class PlayerController : MonoBehaviour
         damper = new SpringDamper(movementStiffness, movementDamping);
         
         currentHP = maxHp;
-        healthbar= GameObject.FindGameObjectWithTag("UI").transform.Find("Healthbar").Find("Foreground").GetComponent<Image>();
+        healthbar = GameObject.FindGameObjectWithTag("UI").transform.Find("Healthbar").Find("Foreground").GetComponent<Image>();
+        firebar = GameObject.FindGameObjectWithTag("UI").transform.Find("Firebar").Find("Foreground").GetComponent<Image>();
         UpdateHealthUI();
     }
 
@@ -51,11 +53,21 @@ public class PlayerController : MonoBehaviour
         ManageInputs();
         UpdateValues();
 
-        if (breathingFire && Time.time - breathingStart > 8)
+        if (breathingFire)
+        {
+            float t = 1 - (Time.time - breathingStart) / 8.0f;
+            firebar.fillAmount = t;
+        }
+        else
+        {
+            float t = Mathf.Min((Time.time - breathingEnd) / 5.0f, 1.0f);
+            firebar.fillAmount = t;
+        }
+        if (breathingFire && Time.time - breathingStart > 8.0f)
         {
             BreathFire(false);
         }
-        if (!canBreathFire && Time.time - breathingEnd > 5)
+        if (!canBreathFire && Time.time - breathingEnd > 5.0f)
         {
             canBreathFire = true;
         }
@@ -89,6 +101,11 @@ public class PlayerController : MonoBehaviour
 
     private void ManageInputs()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1);
         desiredDirection = (Camera.main.ScreenToWorldPoint(mousePos) - Camera.main.transform.position).normalized;
 
@@ -125,9 +142,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(float damage)
     {
-        Debug.Log(currentHP);
         currentHP -= damage;
-        Debug.Log(currentHP);
         if (currentHP <= 0)
         {
             die();
@@ -143,6 +158,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateHealthUI()
     {
         healthbar.fillAmount = currentHP / maxHp;
+        firebar.fillAmount = 1;
     }
 
 }

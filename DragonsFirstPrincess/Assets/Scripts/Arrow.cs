@@ -6,6 +6,7 @@ public class Arrow : MonoBehaviour
 {
     Rigidbody _rb;
     private float damage;
+    private float spawnTime;
 
     private void Awake()
     {
@@ -14,13 +15,18 @@ public class Arrow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        spawnTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.rotation = Quaternion.LookRotation(_rb.velocity);
+
+        if (Time.time - spawnTime > 10)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Init(Vector3 velocity,float damage)
@@ -29,13 +35,12 @@ public class Arrow : MonoBehaviour
         _rb.AddForce(velocity);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Dragon"))
+        if (other.CompareTag("Dragon"))
         {
-            collision.gameObject.GetComponent<PlayerController>().Damage(damage);
+            FindObjectOfType<PlayerController>().Damage(damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
-
 }

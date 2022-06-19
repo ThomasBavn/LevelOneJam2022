@@ -46,7 +46,7 @@ public class Archer : MonoBehaviour
         Vector3 velocity = (targetPosition - transform.position).normalized * pojectileSpeed;
         velocity += new Vector3(Random.Range(-maxRandom, maxRandom), Random.Range(-maxRandom, maxRandom), Random.Range(-maxRandom, maxRandom));
 
-        GameObject arrowObject = Instantiate(Arrow, transform.position, Quaternion.identity);
+        GameObject arrowObject = Instantiate(Arrow, transform.position + transform.forward * 0.5f, Quaternion.identity);
         Arrow arrowScript = arrowObject.GetComponent<Arrow>();
         if (arrowScript == null) Debug.Log("");
         arrowScript.Init(velocity,damage);
@@ -73,7 +73,6 @@ public class Archer : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
 
     private void OnParticleCollision(GameObject other)
     {

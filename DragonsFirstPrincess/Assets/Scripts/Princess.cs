@@ -5,6 +5,7 @@ using UnityEngine;
 public class Princess : MonoBehaviour
 {
     private bool attached = false;
+    private FixedJoint joint;
   
 
     void Start()
@@ -15,6 +16,12 @@ public class Princess : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Detach()
+    {
+        attached = false;
+        joint.connectedBody = null;
     }
 
 
@@ -54,7 +61,7 @@ public class Princess : MonoBehaviour
     {
         if (TryGetComponent(out Rigidbody rb))
         {
-            if (!otherRb.gameObject.TryGetComponent(out FixedJoint joint))
+            if (!otherRb.gameObject.TryGetComponent(out joint))
             {
                 joint = otherRb.gameObject.AddComponent<FixedJoint>();
             }
