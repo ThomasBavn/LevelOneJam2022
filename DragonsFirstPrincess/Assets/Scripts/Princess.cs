@@ -5,10 +5,11 @@ using UnityEngine;
 public class Princess : MonoBehaviour
 {
     private bool attached = false;
+    private PointManager pointManager;
 
     void Start()
     {
-        
+        pointManager = GameObject.FindGameObjectWithTag("PointManager").GetComponent<PointManager>();
     }
 
     void Update()
@@ -37,6 +38,12 @@ public class Princess : MonoBehaviour
             {
                 AttachTo(dragonRb);
             }
+        }
+
+        if (attached && other.CompareTag("Cage"))
+        {
+            pointManager.AddPoints(1);
+            Destroy(gameObject);
         }
     }
 
