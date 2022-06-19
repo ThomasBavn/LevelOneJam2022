@@ -93,8 +93,8 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4134938649180267777}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -108,14 +108,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4134938649180267777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1232e7bbbbe1aa459d9b6c8e6ab72e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 711c878b79ad0a14894a509ad7c1465c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
-  Arrow: {fileID: 3287758389987946152, guid: aa7e7c92b72c5444ca1d1ae7c336d2aa, type: 3}
-  damage: 2
-  cooldown: 0.5
-  pojectileSpeed: 3000
-  aboveFactor: 0.1
-  infrontFactor: 0.1
+  hp: 0
+  Arrow: {fileID: 4185931284390636913, guid: 948c8b085c147694496820a6ce52ecc5, type: 3}
+  damage: 0
+  cooldown: 1
+  pojectileSpeed: 200
+  aboveFactor: 0.5
+  infrontFactor: 1
   maxRandom: 2

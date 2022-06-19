@@ -41,11 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8008384442936740645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3daef88a678f22440a48d441d864c486, type: 3}
+  m_Script: {fileID: 11500000, guid: 7122882bfd7229a448b77678963d4428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 4
-  cooldownIncrements: 0.5
-  minCooldown: 0.1
-  archer: {fileID: 4134938649180267777, guid: bbe9964805e4d69479abf3b532068b53, type: 3}
-  player: {fileID: 0}
+  cooldownIncrements: 0.3
+  minCooldown: 0.3
+  archer: {fileID: 4134938649180267777, guid: 449d54f3566fe6045a0fe3618a9709af, type: 3}
