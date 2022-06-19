@@ -53,14 +53,12 @@ public class ArcherSpawnManager : MonoBehaviour
             ArcherSpawn archerSpawn = archerSpawns[index].GetComponent<ArcherSpawn>();
             if (archerSpawn.archer == null)
             {
-                Debug.Log("spawning archer");
                 GameObject spawnedArcher = Instantiate(archer);
                 archerSpawn.SetArcher(spawnedArcher, player);
                 return;
             }
             index++;
         }
-        Debug.Log("no space for another archer");
         return;
     }
 }
